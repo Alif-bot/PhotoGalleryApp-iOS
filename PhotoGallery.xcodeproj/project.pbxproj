@@ -11,9 +11,9 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C385E6BC2E69509B0071D24F /* PhotoGallery */ = {
+		C385E6BC2E69509B0071D24F /* Files */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PhotoGallery;
+			path = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -32,7 +32,7 @@
 		C385E6B12E69509B0071D24F = {
 			isa = PBXGroup;
 			children = (
-				C385E6BC2E69509B0071D24F /* PhotoGallery */,
+				C385E6BC2E69509B0071D24F /* Files */,
 				C385E6BB2E69509B0071D24F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C385E6BC2E69509B0071D24F /* PhotoGallery */,
+				C385E6BC2E69509B0071D24F /* Files */,
 			);
 			name = PhotoGallery;
 			packageProductDependencies = (
@@ -244,10 +244,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PhotoGallery/PhotoGallery.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Files/PhotoGallery.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PhotoGallery/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Files/Preview Content\"";
 				DEVELOPMENT_TEAM = D326SLTCPM;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -270,10 +270,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.alif..PhotoGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
@@ -283,10 +284,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = PhotoGallery/PhotoGallery.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Files/PhotoGallery.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PhotoGallery/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Files/Preview Content\"";
 				DEVELOPMENT_TEAM = D326SLTCPM;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -309,10 +310,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.alif..PhotoGallery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
