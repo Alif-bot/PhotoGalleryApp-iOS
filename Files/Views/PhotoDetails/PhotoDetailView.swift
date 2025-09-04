@@ -121,7 +121,7 @@ struct PhotoDetailView: View {
             }
         } label: {
             Image(systemName: "ellipsis.circle.fill")
-                .font(.system(size: 20))
+                .font(.system(size: 25))
                 .foregroundColor(.white)
                 .padding(.trailing, 12)
                 .padding(.top, 16)
@@ -134,7 +134,7 @@ struct PhotoDetailView: View {
             Text("Saved Successfully!")
                 .font(.subheadline)
                 .foregroundColor(.white)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 25)
                 .padding(.vertical, 10)
                 .background(Color.black.opacity(0.8))
                 .cornerRadius(12)
