@@ -17,7 +17,11 @@ struct PhotoCellView: View {
         WebImage(url: URL(string: photo.download_url))
             .resizable()
             .scaledToFill()
-            .frame(width: width ?? .infinity, height: height)
+            .frame(
+                width: width,
+                height: height
+            )
+            .frame(maxWidth: width == nil ? .infinity : nil)
             .clipped()
             .cornerRadius(8)
     }
