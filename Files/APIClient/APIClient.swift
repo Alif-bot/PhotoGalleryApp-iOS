@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import Combine
+
+protocol APIClient {
+    func request<T: Decodable>(parameters: ResourceParameters) -> AnyPublisher<T, APIError>
+}
