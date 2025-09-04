@@ -42,3 +42,12 @@ final class URLSessionAPIClient: APIClient {
             .eraseToAnyPublisher()
     }
 }
+
+extension URLSessionAPIClient {
+    func downloadData(from url: URL) -> AnyPublisher<Data, APIError> {
+        URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .mapError { APIError.custom($0.localizedDescription) }
+            .eraseToAnyPublisher()
+    }
+}

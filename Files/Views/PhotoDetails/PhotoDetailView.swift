@@ -18,6 +18,14 @@ struct PhotoDetailView: View {
     
     var body: some View {
         contentView()
+            .onAppear {
+                viewModel.loadUIImage()
+            }
+            .sheet(isPresented: $viewModel.isSharePresented) {
+                if let image = viewModel.image {
+                    ShareSheetView(items: [image])
+                }
+            }
     }
     
     @ViewBuilder
@@ -37,7 +45,8 @@ struct PhotoDetailView: View {
                     }
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 
-                closeButtonView()
+                topButtonsView()
+                toastView()
             }
         }
     }
@@ -51,7 +60,6 @@ struct PhotoDetailView: View {
             .offset(viewModel.offset)
             .gesture(
                 SimultaneousGesture(
-                    // Pinch-to-zoom
                     MagnificationGesture()
                         .onChanged { value in
                             let delta = value / viewModel.lastScale
@@ -60,12 +68,8 @@ struct PhotoDetailView: View {
                         }
                         .onEnded { _ in
                             viewModel.lastScale = 1
-                            if viewModel.scale < 1 {
-                                viewModel.resetZoom()
-                            }
+                            if viewModel.scale < 1 { viewModel.resetZoom() }
                         },
-                    
-                    // Drag when zoomed
                     DragGesture()
                         .onChanged { value in
                             guard viewModel.scale > 1 else { return }
@@ -82,21 +86,62 @@ struct PhotoDetailView: View {
     }
     
     @ViewBuilder
-    private func closeButtonView() -> some View {
-        // Close button
+    private func topButtonsView() -> some View {
         VStack {
             HStack {
+                dismissButtonView()
                 Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 36))
-                        .foregroundColor(.white)
-                        .padding()
-                }
+                saveandShareButtonView()
             }
             Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    private func dismissButtonView() -> some View {
+        Button {
+            dismiss()
+        } label: {
+            Image(systemName: "xmark.circle.fill")
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .padding(.leading, 12)
+                .padding(.top, 16)
+        }
+    }
+    
+    @ViewBuilder
+    private func saveandShareButtonView() -> some View {
+        Menu {
+            Button("Save to Gallery") {
+                viewModel.saveToGallery()
+            }
+            Button("Share") {
+                viewModel.isSharePresented = true
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle.fill")
+                .font(.system(size: 20))
+                .foregroundColor(.white)
+                .padding(.trailing, 12)
+                .padding(.top, 16)
+        }
+    }
+    
+    @ViewBuilder
+    private func toastView() -> some View {
+        if viewModel.showToast {
+            Text("Saved Successfully!")
+                .font(.subheadline)
+                .foregroundColor(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Color.black.opacity(0.8))
+                .cornerRadius(12)
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+                .animation(.easeInOut, value: viewModel.showToast)
+                .padding(.bottom, 50)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         }
     }
 }
@@ -106,8 +151,8 @@ struct PhotoDetailView: View {
         photo: Photo(
             id: "0",
             author: "Alejandro Escamilla",
-            width: 5000,
-            height: 3333,
+            width: 200,
+            height: 300,
             url: "https://unsplash.com/photos/yC-Yzbqy7PY",
             download_url: "https://picsum.photos/id/0/5000/3333"
         )

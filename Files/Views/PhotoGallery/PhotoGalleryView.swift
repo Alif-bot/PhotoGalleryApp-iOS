@@ -60,6 +60,7 @@ struct PhotoGalleryView: View {
             LazyVGrid(columns: viewModel.gridColumns, spacing: 12) {
                 ForEach(viewModel.photos) { photo in
                     PhotoCellView(photo: photo, height: 150, width: 150)
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             viewModel.selectedPhoto = photo
                         }
@@ -85,7 +86,9 @@ struct PhotoGalleryView: View {
         List(viewModel.photos) { photo in
             PhotoCellView(photo: photo, height: 200)
                 .frame(maxWidth: .infinity)
-                .onTapGesture { viewModel.selectedPhoto = photo }
+                .onTapGesture {
+                    viewModel.selectedPhoto = photo
+                }
                 .onAppear {
                     if photo.id == viewModel.photos.last?.id {
                         viewModel.eventHandler(.loadNextPage(photo))
