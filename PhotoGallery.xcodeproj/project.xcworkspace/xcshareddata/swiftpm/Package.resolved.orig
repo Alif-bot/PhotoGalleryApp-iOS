@@ -1,6 +1,9 @@
 {
-  "originHash" : "390283ecf6750deb55e897e1314617e4673a430a28e7d13cd02ea567c8939a8b",
+<<<<<<< HEAD
   "originHash" : "2f0e5e95caa0ba3716859cc25e11787df9dae69f8ddcd948b1f9026f175a6409",
+=======
+  "originHash" : "390283ecf6750deb55e897e1314617e4673a430a28e7d13cd02ea567c8939a8b",
+>>>>>>> 0f7aaec34791e96f38df8908838245b0f8d4f780
   "pins" : [
     {
       "identity" : "lottie-ios",

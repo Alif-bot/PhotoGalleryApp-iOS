@@ -10,8 +10,6 @@ import SDWebImageSwiftUI
 
 struct WebImageView: View {
     let url: String
-    var width: CGFloat
-    var height: CGFloat
     var cornerRadius: CGFloat = 8
     
     @State private var isImageLoaded = false
@@ -22,7 +20,6 @@ struct WebImageView: View {
             WebImage(url: URL(string: url))
                 .resizable()
                 .scaledToFill()
-                .frame(width: width, height: height)
                 .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                 .background(
                     Group {
