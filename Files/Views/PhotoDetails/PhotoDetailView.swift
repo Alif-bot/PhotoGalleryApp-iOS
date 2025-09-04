@@ -133,7 +133,7 @@ struct PhotoDetailView: View {
         if viewModel.showToast {
             Text("Saved Successfully!")
                 .font(.subheadline)
-                .foregroundColor(.white)
+                .foregroundColor(.primary)
                 .padding(.horizontal, 25)
                 .padding(.vertical, 10)
                 .background(Color.black.opacity(0.8))
