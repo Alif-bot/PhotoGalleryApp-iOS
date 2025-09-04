@@ -23,9 +23,6 @@ struct PhotoGalleryView: View {
                 PhotoDetailView(photo: photo)
             }
         }
-        .onAppear {
-            viewModel.fetchPhotos()
-        }
         .navigationBarHidden(true)
     }
     
@@ -62,15 +59,21 @@ struct PhotoGalleryView: View {
         ScrollView {
             LazyVGrid(columns: viewModel.gridColumns, spacing: 12) {
                 ForEach(viewModel.photos) { photo in
-                    GeometryReader { geometry in
-                        PhotoCellView(
-                            photo: photo,
-                            height: geometry.size.width,
-                            width: geometry.size.width
-                        )
-                        .onTapGesture { viewModel.selectedPhoto = photo }
-                    }
-                    .aspectRatio(1, contentMode: .fit)
+                    PhotoCellView(photo: photo, height: 150, width: 150)
+                        .onTapGesture {
+                            viewModel.selectedPhoto = photo
+                        }
+                        .onAppear {
+                            if photo.id == viewModel.photos.last?.id {
+                                viewModel.eventHandler(.loadNextPage(photo))
+                            }
+                        }
+                }
+                
+                if viewModel.isLoadingPage {
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding()
                 }
             }
             .padding(12)
@@ -83,6 +86,11 @@ struct PhotoGalleryView: View {
             PhotoCellView(photo: photo, height: 200)
                 .frame(maxWidth: .infinity)
                 .onTapGesture { viewModel.selectedPhoto = photo }
+                .onAppear {
+                    if photo.id == viewModel.photos.last?.id {
+                        viewModel.eventHandler(.loadNextPage(photo))
+                    }
+                }
         }
         .listStyle(PlainListStyle())
     }

@@ -11,7 +11,7 @@ import SwiftUI
 struct PhotoGalleryApp: App {
     var body: some Scene {
         WindowGroup {
-            PhotoGalleryView(viewModel: PhotoGalleryViewModel() )
+            SplashView()
         }
     }
 }

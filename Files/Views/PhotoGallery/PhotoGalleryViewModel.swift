@@ -11,16 +11,19 @@ import SwiftUI
 
 final class PhotoGalleryViewModel: ObservableObject {
     
-    // MARK: - Dependencies
-    
-    private let apiClient: APIClient
-    
     // MARK: - State
     @Published var photos: [Photo] = []
     @Published var selectedPhoto: Photo?
     @Published var errorMessage: String?
     @Published var isGrid: Bool = true
+    @Published var isLoadingPage = false
     
+    // Pagination
+    private var currentPage = 2
+    private let pageSize = 50
+    private var canLoadMore = true
+    
+    // Grid layout
     var gridColumns: [GridItem] {
         [GridItem(.flexible(), spacing: 12),
          GridItem(.flexible(), spacing: 12)]
@@ -32,15 +35,20 @@ final class PhotoGalleryViewModel: ObservableObject {
     
     enum Event {
         case toggleLayout
+        case loadNextPage(Photo)
     }
     
     // MARK: - Init
     
-    init(
-        apiClient: APIClient = URLSessionAPIClient()
-    ) {
-        self.apiClient = apiClient
-        fetchPhotos()
+    init() {
+        // Initial sync from DataKeeper
+        self.photos = PhotoDataKeeper.shared.photos
+        PhotoDataKeeper.shared.$photos
+            .dropFirst() 
+            .sink { [weak self] newPhotos in
+                self?.photos = newPhotos
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Event Handler
@@ -48,25 +56,17 @@ final class PhotoGalleryViewModel: ObservableObject {
         switch event {
         case .toggleLayout:
             toggleView()
+        case .loadNextPage(let photo):
+            loadNextPageIfNeeded(currentPhoto: photo)
         }
-    }
-    
-    func fetchPhotos() {
-        let params = ResourceParameters(url: "https://picsum.photos/v2/list?page=1&limit=50")
-        
-        apiClient.request(parameters: params)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    self.errorMessage = error.localizedDescription
-                }
-            } receiveValue: { (photos: [Photo]) in
-                self.photos = photos
-            }
-            .store(in: &cancellables)
     }
     
     private func toggleView() {
         isGrid.toggle()
+    }
+    
+    private func loadNextPageIfNeeded(currentPhoto: Photo) {
+        guard let last = photos.last, currentPhoto.id == last.id else { return }
+        PhotoDataKeeper.shared.fetchNextPage()
     }
 }
