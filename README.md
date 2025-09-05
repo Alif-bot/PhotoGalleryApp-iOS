@@ -59,11 +59,11 @@ The project follows the MVVM architecture with Combine for reactive data binding
 - Infinite scrolling with next page loading.
 
 **🚀 Getting Started**
-Clone the repository:
-git clone https://github.com/yourusername/PhotoGalleryApp.git
-Open the project in Xcode:
-open PhotoGalleryApp.xcodeproj
-Run the app on a simulator or physical device.
+- Clone the repository:
+- git clone https://github.com/yourusername/PhotoGalleryApp.git
+- Open the project in Xcode:
+- open PhotoGalleryApp.xcodeproj
+- Run the app on a simulator or physical device.
 
 **📱 Requirements**
 iOS 15.0+
