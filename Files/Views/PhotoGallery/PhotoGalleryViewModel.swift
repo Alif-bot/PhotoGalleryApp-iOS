@@ -11,6 +11,9 @@ import SwiftUI
 
 final class PhotoGalleryViewModel: ObservableObject {
     
+    // MARK: - Dependencies
+    private let dataProvider: any PhotoDataProvider
+    
     // MARK: - State
     @Published var photos: [Photo] = []
     @Published var selectedPhoto: Photo?
@@ -40,11 +43,14 @@ final class PhotoGalleryViewModel: ObservableObject {
     
     // MARK: - Init
     
-    init() {
-        // Initial sync from DataKeeper
-        self.photos = PhotoDataKeeper.shared.photos
-        PhotoDataKeeper.shared.$photos
-            .dropFirst() 
+    init(
+        dataProvider: any PhotoDataProvider = PhotoDataKeeper.shared
+    ) {
+        self.dataProvider = dataProvider
+        self.photos = dataProvider.photos
+        
+        // Subscribe to updates via the publisher
+        dataProvider.photosPublisher
             .sink { [weak self] newPhotos in
                 self?.photos = newPhotos
             }
@@ -66,7 +72,7 @@ final class PhotoGalleryViewModel: ObservableObject {
     }
     
     private func loadNextPageIfNeeded(currentPhoto: Photo) {
-        guard let last = photos.last, currentPhoto.id == last.id else { return }
-        PhotoDataKeeper.shared.fetchNextPage()
+        guard let last = photos.last, currentPhoto.id == last.id, canLoadMore else { return }
+        dataProvider.fetchNextPage()
     }
 }

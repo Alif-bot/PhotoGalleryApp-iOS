@@ -20,15 +20,17 @@ final class PhotoDetailViewModel: ObservableObject {
     @Published var isSharePresented = false
     @Published var showToast: Bool = false
     
-    private var apiClient: APIClient {
-        URLSessionAPIClient()
-    }
+    private let apiClient: APIClient
     
     let photo: Photo
     private var cancellables = Set<AnyCancellable>()
     
-    init(photo: Photo) {
+    init(
+        photo: Photo,
+        apiClient: APIClient = URLSessionAPIClient()
+    ) {
         self.photo = photo
+        self.apiClient = apiClient
         loadUIImage()
     }
     

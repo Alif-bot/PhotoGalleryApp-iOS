@@ -8,13 +8,13 @@
 import Foundation
 import Combine
 
-final class PhotoDataKeeper: ObservableObject {
+final class PhotoDataKeeper: PhotoDataProvider {
     static let shared = PhotoDataKeeper()
     private var cancellables = Set<AnyCancellable>()
     
     @Published var photos: [Photo] = []
-    @Published var isLoading = false
-    @Published var errorMessage: String?
+    @Published private(set) var isLoading = false
+    @Published private(set) var errorMessage: String?
     
     private var currentPage = 1
     private let pageSize = 50
@@ -22,6 +22,11 @@ final class PhotoDataKeeper: ObservableObject {
     
     private var apiClient: APIClient {
         URLSessionAPIClient()
+    }
+    
+    var photosPublisher: AnyPublisher<[Photo], Never> {
+        $photos
+            .eraseToAnyPublisher()
     }
     
     private let cacheFile = FileManager.default.temporaryDirectory.appendingPathComponent("photos_cache.json")
@@ -70,9 +75,8 @@ final class PhotoDataKeeper: ObservableObject {
                 }
                 
                 self.isLoading = false
-                self.saveToCache(self.photos) // save updated photos to cache
+                self.saveToCache(self.photos)
                 
-                // Stop pagination if fewer items than requested
                 if newPhotos.count < self.pageSize {
                     self.canLoadMore = false
                 }
