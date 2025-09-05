@@ -30,5 +30,13 @@ final class SplashViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+            if self?.isActive == false {
+                withAnimation {
+                    self?.isActive = true
+                }
+            }
+        }
     }
 }
