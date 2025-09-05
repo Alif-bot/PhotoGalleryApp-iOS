@@ -1,6 +1,6 @@
 📸 **PhotoGalleryApp**
 
-**PhotoGalleryApp is a SwiftUI-based iOS application that fetches photos from the network and provides a smooth user experience with features like splash screen animation, infinite scrolling, grid/list toggle, and full-screen image viewing with pinch-to-zoom.
+**PhotoGalleryApp is a SwiftUI-based iOS application that fetches photos from the [Picsum API](https://picsum.photos/) and provides a smooth user experience with features like splash screen animation, infinite scrolling, grid/list toggle, and full-screen image viewing with pinch-to-zoom.
 
 The project follows the MVVM architecture with Combine for reactive data binding and includes unit tests with mocks to ensure maintainability and scalability.**
 
