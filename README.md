@@ -60,7 +60,7 @@ The project follows the MVVM architecture with Combine for reactive data binding
 
 **🚀 Getting Started**
 - Clone the repository:
-- git clone https://github.com/yourusername/PhotoGalleryApp.git
+- git clone https://github.com/Alif-bot/PhotoGalleryApp-iOS.git
 - Open the project in Xcode:
 - open PhotoGalleryApp.xcodeproj
 - Run the app on a simulator or physical device.
