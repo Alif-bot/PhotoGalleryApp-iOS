@@ -5,26 +5,16 @@
 The project follows the MVVM architecture with Combine for reactive data binding and includes unit tests with mocks to ensure maintainability and scalability.**
 
 
-✨ Features
+**✨ Features**
+- Splash Screen with Lottie animation before loading photos.
+- Gallery View supporting both Grid and List layouts.
+- Infinite Scrolling – loads more photos when the user reaches the bottom.
+- Full-Screen Mode with pinch-to-zoom in/out functionality.
+- Photo Sharing – share photos via the system share sheet.
+- Offline Caching – uses URLCache for efficient data loading.
+- MVVM + Combine architecture for clean separation of concerns.
+- Unit Tests with Mocks – testable and modular design.
 
-Splash Screen with Lottie animation before loading photos.
-
-Gallery View supporting both Grid and List layouts.
-
-Infinite Scrolling – loads more photos when the user reaches the bottom.
-
-Full-Screen Mode with pinch-to-zoom in/out functionality.
-
-Photo Sharing – share photos via the system share sheet.
-
-Offline Caching – uses URLCache for efficient data loading.
-
-MVVM + Combine architecture for clean separation of concerns.
-
-Unit Tests with Mocks – testable and modular design.
-
-
-🛠️ Tech Stack
 
 ## 🛠️ Tech Stack
 - **SwiftUI** – UI development
@@ -52,58 +42,34 @@ Unit Tests with Mocks – testable and modular design.
 
 ---
 
-✅ Unit Testing
-
+**✅ Unit Testing**
 The project uses XCTest and Combine to validate business logic.
-
 Mocks Implemented
-
 MockAPIClient → simulates network responses and errors.
-
 MockPhotoDataProvider → simulates photo fetching and pagination.
 
-Key Tests
-
+**Key Tests**
 PhotoDetailViewModelTests
-
 Reset zoom functionality.
-
 Successful and failed image loading.
-
 Share item logic.
-
 PhotoGalleryViewModelTests
-
 Initial photos are loaded correctly.
-
 Grid/List layout toggle.
-
 Infinite scrolling with next page loading.
 
-🚀 Getting Started
-
+**🚀 Getting Started**
 Clone the repository:
-
 git clone https://github.com/yourusername/PhotoGalleryApp.git
-
-
 Open the project in Xcode:
-
 open PhotoGalleryApp.xcodeproj
-
-
 Run the app on a simulator or physical device.
 
-📱 Requirements
-
+**📱 Requirements**
 iOS 15.0+
-
 Xcode 15+
-
 Swift 5.9+
 
-🧪 Running Tests
-
+**🧪 Running Tests**
 Run tests using Xcode’s Product → Test menu or:
-
 ⌘ + U
