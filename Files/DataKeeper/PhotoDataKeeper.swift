@@ -24,12 +24,16 @@ final class PhotoDataKeeper: ObservableObject {
         URLSessionAPIClient()
     }
     
+    private let cacheFile = FileManager.default.temporaryDirectory.appendingPathComponent("photos_cache.json")
+    
     private init() {}
+    
+    // MARK: - Public Methods
     
     func fetchInitialPhotos() {
         currentPage = 1
         canLoadMore = true
-        photos = []
+        photos = loadFromCache() // load cached photos immediately
         fetchPhotos()
     }
     
@@ -38,6 +42,8 @@ final class PhotoDataKeeper: ObservableObject {
         currentPage += 1
         fetchPhotos()
     }
+    
+    // MARK: - Private Methods
     
     private func fetchPhotos() {
         guard canLoadMore else { return }
@@ -57,8 +63,14 @@ final class PhotoDataKeeper: ObservableObject {
             } receiveValue: { [weak self] (newPhotos: [Photo]) in
                 guard let self = self else { return }
                 
-                self.photos.append(contentsOf: newPhotos)
+                if self.currentPage == 1 {
+                    self.photos = newPhotos
+                } else {
+                    self.photos.append(contentsOf: newPhotos)
+                }
+                
                 self.isLoading = false
+                self.saveToCache(self.photos) // save updated photos to cache
                 
                 // Stop pagination if fewer items than requested
                 if newPhotos.count < self.pageSize {
@@ -66,5 +78,25 @@ final class PhotoDataKeeper: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    // MARK: - Disk Caching
+    
+    private func saveToCache(_ photos: [Photo]) {
+        do {
+            let data = try JSONEncoder().encode(photos)
+            try data.write(to: cacheFile)
+        } catch {
+            print("Failed to write cache:", error)
+        }
+    }
+    
+    private func loadFromCache() -> [Photo] {
+        do {
+            let data = try Data(contentsOf: cacheFile)
+            return try JSONDecoder().decode([Photo].self, from: data)
+        } catch {
+            return []
+        }
     }
 }
