@@ -43,20 +43,20 @@ The project follows the MVVM architecture with Combine for reactive data binding
 ---
 
 **✅ Unit Testing**
-The project uses XCTest and Combine to validate business logic.
-Mocks Implemented
-MockAPIClient → simulates network responses and errors.
-MockPhotoDataProvider → simulates photo fetching and pagination.
+- The project uses XCTest and Combine to validate business logic.
+- Mocks Implemented
+- MockAPIClient → simulates network responses and errors.
+- MockPhotoDataProvider → simulates photo fetching and pagination.
 
 **Key Tests**
-PhotoDetailViewModelTests
-Reset zoom functionality.
-Successful and failed image loading.
-Share item logic.
-PhotoGalleryViewModelTests
-Initial photos are loaded correctly.
-Grid/List layout toggle.
-Infinite scrolling with next page loading.
+- PhotoDetailViewModelTests
+- Reset zoom functionality.
+- Successful and failed image loading.
+- Share item logic.
+- PhotoGalleryViewModelTests
+- Initial photos are loaded correctly.
+- Grid/List layout toggle.
+- Infinite scrolling with next page loading.
 
 **🚀 Getting Started**
 Clone the repository:
